@@ -1,71 +1,39 @@
-// // Assignment Code
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-// }
-
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword());
-
-$("generateBtn").on("click", writePassword());
-
-function writePassword() {
-  password = writePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-}
-
-function writePassword() {
-  let length = prompt("Please input desired length, between 8-128 characters");
-  const lowerL = confirm("Would you like there to be lowercase letters?");
-  const upperL = confirm("Would you like uppercase letters?");
-  const number = confirm("Would you like there to be numbers?");
-  const char = confirm("Would you like special characters? ex: ! @ # $");
-  let passChar = "";
-  let passSample = "";
+$(".btn").on("click", function writePassword() {
+  let length = prompt(
+    "How long does the password need to be? (between 8 and 124)"
+  );
+  const low = confirm("Include lowercase letters?");
+  const up = confirm("Include uppercase letters?");
+  const num = confirm("Include numbers?");
+  const spec = confirm("Would you like special characters? ex: ! @ # $");
+  let chars = "";
+  let password = "";
   length = parseInt(length);
 
-  if (length < 8 || length > 128) {
-    alert("Password must be within 8-128 characters. Please select again.");
-    length = prompt(
-      "Please choose a correct length, between 8 and 128 characters."
-    );
+  if (length < 8 || length > 124) {
+    alert("Password must be between 8 and 124 characters.");
+    length = prompt("Choose a length between 8 and 124 characters.");
     length = parseInt(length);
   }
 
-  if (
-    lowerL === false &&
-    upperL === false &&
-    number === false &&
-    char == false
-  ) {
-    alert("You must select at least one option to generate a password");
-    writePassword();
+  if (low == false && up == false && num == false && spec == false) {
+    alert("You must select at least one option to generate a password.");
   } else {
-    if (lowerL === true) {
-      passChar = "abcdefghijklmnopqrstuvwxyz";
+    if (low == true) {
+      chars = "abcdefghijklmnopqrstuvwxyz";
     }
-    if (upperL === true) {
-      passChar = passChar + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (up == true) {
+      chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
-    if (number === true) {
-      passChar = passChar + "012356789";
+    if (num == true) {
+      chars += "012356789";
     }
-    if (char === true) {
-      passChar = passChar + "!@#$%&?()";
+    if (spec == true) {
+      chars += "!@#$%&?()";
     }
     for (var i = 0; i < length; i++) {
-      passSample =
-        passSample +
-        passChar.charAt(Math.floor(Math.random() * passChar.length));
-      console.log(passSample);
-      console.log(passSample.length);
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
   }
-  return passSample;
-}
+  $("#password").text(password);
+});
